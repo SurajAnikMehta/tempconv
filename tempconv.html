@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter</title>
+    <style>
+        body{
+            padding: 90px 300px;
+            background-color: rgb(97, 167, 32);
+        }
+        h1{
+            font-size: 60px;
+            background-color: white;
+            text-align: center;
+        }
+        #container{
+            margin-top: 10%;
+            font-size: 30px;padding: 40px 0px 60px 0px;
+            border: solid 5px white;
+            text-align: center;
+        }
+        .input-div{
+            display: inline-block;
+        }
+        .cels{
+            padding: 5px 10px;
+            width: 300px; height: 50px;
+            font-size: 30px;
+            margin-top: 10%; 
+            font-weight: bold;
+            border: solid 2px rgb(0, 0, 0);
+        }
+        .cel2{
+            padding: 5px 10px;
+            width: 300px; height: 50px;
+            font-size: 30px;
+            margin-top: 10%;margin-left:10%;
+            font-weight: bold;
+            border: solid 2px rgb(0, 0, 0);
+        }
+        #input{
+            width: 100%; height: 40px;
+            padding: 5px 10px; font-size: 20px;
+            font-weight: bold;
+            margin-top: 10%; 
+            border: solid 2px rgb(2, 2, 2);
+        }
+        #output{
+            width: 100%; height: 40px;
+            padding: 5px 10px; font-size: 20px;
+            font-weight: bold;
+            margin-top: 10%; margin-left:10%;
+            border: solid 2px rgb(0, 0, 0);
+        }
+        /* Resposive screen */
+        @media screen and (min-width:601px) and (max-width:1280px){
+            body{
+                padding: 40px 20px;
+                text-align: center;
+            }
+            h1{
+                padding:5% 2%;
+                font-size: 25px;
+            }
+            #container{
+                margin-top: 15%;
+                font-size: 30px;
+                padding: 40px 10px 60px 10px;
+            }
+            .cels{
+                width: 250px; height: 45px;
+                margin-top: 10%;
+            }
+            .cel2{
+                width: 250px; height: 45px;
+                margin-top: 10%;
+            }
+            #input{
+                width: 100%; height: 40px;
+                font-size: 16px;
+                margin-top: 10%; 
+            }
+            #output{
+                width: 100%; height: 40px;
+                font-size: 16px;
+                margin-top: 10%; 
+            }
+        }
+        @media screen and (max-width:600px) {
+            body{
+                padding: 30px 15px;
+                text-align: center;
+            }
+            h1{
+                padding:5% 2%;
+                font-size: 25px;
+            }
+            #container{
+                margin-top: 15%;
+                font-size: 25px;
+                padding: 40px 10px 60px 10px;
+            }
+            .cels{
+                width: 100px; height: 25px;
+                margin-top: 10%;
+            }
+            .cel2{
+                width: 100px; height: 25px;
+                margin-top: 10%;
+            }
+            #input{
+                width: 100%; height: 30px;
+                font-size: 16px;
+                margin-top: 10%; 
+            }
+            #output{
+                width: 100%; height: 30px;
+                font-size: 16px;
+                margin-top: 10%; 
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Temperature Converter</h1>
+    <div id="container">
+        <div class="input-div">
+            <select id="input">
+                <option value="celsius">Celsius</option>
+                <option value="fahrenhite">Fahrenhite</option>
+                <option value="kelvin">Kelvin</option>
+                <option value="rankie">Rankie</option>
+            </select><br>
+            <input type="number" value="0" id="input-change" class="cels">
+        </div>
+        <div class="input-div ">
+            <select id="output">
+                <option value="fahrenhite">Fahrenhit</option>
+                <option value="celsius">Celsius</option>
+                <option value="kelvin">Kelvin</option>
+                <option value="rankie">Rankie</option>
+            </select><br>
+            <input type="number" value="32" id="output-change" class="cel2">
+        </div>
+    </div>
+    <script>
+        var inputval = document.getElementById("input-change");
+        var outputval = document.getElementById("output-change");
+        var input = document.getElementById("input");
+        var output = document.getElementById("output");
+
+        // adding listene
+        inputval.addEventListener('input',Converter);
+        outputval.addEventListener('input',outconv);
+        input.addEventListener('change',Converter);
+        output.addEventListener('change',Converter);
+        
+
+        function Converter(){
+            var inputvalue = input.value;
+            var outputvalue = output.value;
+            // celsius
+            if(inputvalue === "celsius" && outputvalue === "fahrenhite" ){
+                outputval.value = (inputval.value * 9/5) + 32;
+            }
+            else if(inputvalue === "celsius" && outputvalue === "kelvin" ){
+                outputval.value = Number(inputval.value) + 273.15;
+            }            
+            else if(inputvalue === "celsius" && outputvalue === "rankie" ){
+                outputval.value = (Number(inputval.value) + 273.15) * 9/5 ;
+            }
+            else if(inputvalue === "celsius" && outputvalue === "celsius" ){
+                outputval.value = inputval.value;
+            }
+            // Farhenihte
+            if(inputvalue === "fahrenhite" && outputvalue === "celsius" ){
+                outputval.value = (Number(inputval.value) - 32) * 5/9;
+            }
+            else if(inputvalue === "fahrenhite" && outputvalue === "kelvin" ){
+                outputval.value = (Number(inputval.value - 32) * 5/9) + 273.15;
+            }            
+            else if(inputvalue === "fahrenhite" && outputvalue === "rankie" ){
+                outputval.value = Number(inputval.value) + 459.67 ;
+            }
+            else if(inputvalue === "fahrenhite" && outputvalue === "fahrenhite" ){
+                outputval.value = inputval.value;
+            }
+            // kelvin
+            if(inputvalue === "kelvin" && outputvalue === "celsius" ){
+                outputval.value = Number(inputval.value) - 273.15 ;
+            }
+            else if(inputvalue === "kelvin" && outputvalue === "fahrenhite" ){
+                outputval.value = (Number(inputval.value) - 273.15) * 9/5 +  32;
+            }            
+            else if(inputvalue === "kelvin" && outputvalue === "rankie" ){
+                outputval.value = inputval.value * 9/5 ;
+            }
+            else if(inputvalue === "kelvin" && outputvalue === "kelvin" ){
+                outputval.value = inputval.value;
+            }
+            // Rankie
+            if(inputvalue === "rankie" && outputvalue === "celsius" ){
+                inputval.value = (Number(inputval.value) - 491.67) * 5/9;
+            }
+            else if(inputvalue === "rankie" && outputvalue === "kelvin" ){
+                inputval.value = inputval.value * 5/9 ;
+            }            
+            else if(inputvalue === "rankie" && outputvalue === "fahrenhite" ){
+                inputval.value = Number(inputval.value) - 459.67 ;
+            }
+            else if(inputvalue === "rankie" && outputvalue === "rankie" ){
+                inputval.value = inputval.value;
+            }
+
+            
+        }
+// output to input
+        function outconv(){
+            var inputvalue = output.value;
+            var outputvalue = input.value;
+            if(inputvalue === "celsius" && outputvalue === "fahrenhite" ){
+                inputval.value = (outputval.value * 9/5) + 32;
+            }
+            else if(inputvalue === "celsius" && outputvalue === "kelvin" ){
+                inputval.value = Number(outputval.value) + 273.15;
+            }            
+            else if(inputvalue === "celsius" && outputvalue === "rankie" ){
+               inputval.value = (Number(outputval.value) + 273.15) * 9/5 ;
+            }
+            else if(inputvalue === "celsius" && outputvalue === "celsius" ){
+                inputval.value = outputval.value;
+            }
+            // Farhenihte
+            if(inputvalue === "fahrenhite" && outputvalue === "celsius" ){
+                inputval.value = (Number(outputval.value) - 32) * 5/9;
+            }
+            else if(inputvalue === "fahrenhite" && outputvalue === "kelvin" ){
+                inputval.value = (Number(outputval.value - 32) * 5/9) + 273.15;
+            }            
+            else if(inputvalue === "fahrenhite" && outputvalue === "rankie" ){
+                inputval.value = Number(outputval.value) + 459.67 ;
+            }
+            else if(inputvalue === "fahrenhite" && outputvalue === "fahrenhite" ){
+                inputval.value = outputval.value;
+            }
+            // kelvin
+            if(inputvalue === "kelvin" && outputvalue === "celsius" ){
+                inputval.value = Number(outputval.value) - 273.15 ;
+            }
+            else if(inputvalue === "kelvin" && outputvalue === "fahrenhite" ){
+                inputval.value = (Number(outputval.value) - 273.15) * 9/5 +  32;
+            }            
+            else if(inputvalue === "kelvin" && outputvalue === "rankie" ){
+                inputval.value = outputval.value * 9/5 ;
+            }
+            else if(inputvalue === "kelvin" && outputvalue === "kelvin" ){
+                inputval.value = outputval.value;
+            }
+            // Rankie
+            if(inputvalue === "rankie" && outputvalue === "celsius" ){
+                inputval.value = (Number(outputval.value) - 491.67) * 5/9;
+            }
+            else if(inputvalue === "rankie" && outputvalue === "kelvin" ){
+                inputval.value = outputval.value * 5/9 ;
+            }            
+            else if(inputvalue === "rankie" && outputvalue === "fahrenhite" ){
+                inputval.value = Number(outputval.value) - 459.67 ;
+            }
+            else if(inputvalue === "rankie" && outputvalue === "rankie" ){
+                inputval.value = outputval.value;
+            }
+        }
+    </script>
+</body>
+</html>
+
